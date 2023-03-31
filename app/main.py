@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory, redirect
 from flask_wtf import FlaskForm
-from wtforms import FileField, SubmitField, MultipleFileField
+from wtforms import SubmitField, MultipleFileField
 from werkzeug.utils import secure_filename
 import os
 import xml.etree.ElementTree as ET
@@ -40,7 +40,7 @@ def home():
             filename = secure_filename(file)
             filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], filename)
             print(filepath)
-            features.find_and_replace_part_country_elements(filepath)
+            features.find_and_replace(filepath)
     
         return redirect('/download')
     return render_template('index.html', form=form)
