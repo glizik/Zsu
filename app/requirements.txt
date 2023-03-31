@@ -1,0 +1,6 @@
+flask
+flask_wtf
+wtforms
+werkzeug
+pygments==2.7.4
+pymdown-extensions==7.0
