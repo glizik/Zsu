@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import os
 import xml.etree.ElementTree as ET
 import shutil
+import features
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -15,7 +16,7 @@ class UploadFileForm(FlaskForm):
     submit = SubmitField('Upload File')
 
 class RunMagic(FlaskForm):
-    run = SubmitField('Run Magic')
+    run = SubmitField('Download files')
 
 filenames = []
 
@@ -38,20 +39,8 @@ def home():
             # Load the XML file
             filename = secure_filename(file)
             filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], filename)
-            tree = ET.parse(filepath)
-            print('parse')
-
-            # Get the root element
-            root = tree.getroot()
-            print('root')
-
-            # Find all PartCountry elements and update the value of the ones that are 'LU'
-            for country in root.iter('PartCountry'):
-                if country.text == 'LU':
-                    country.text = 'CN'
-
-            # Save the modified XML file
-            tree.write(filepath)
+            print(filepath)
+            features.find_and_replace_part_country_elements(filepath)
     
         return redirect('/download')
     return render_template('index.html', form=form)
