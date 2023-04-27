@@ -28,6 +28,7 @@ RUN touch ~/.ssh/authorized_keys
 RUN chmod 600 ~/.ssh/authorized_keys
 RUN cat /app/ssh/id_ed25519_arpi.pub >> ~/.ssh/authorized_keys
 RUN cat /app/ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+RUN cat /app/ssh/macbook.pub >> ~/.ssh/authorized_keys
 
 # fix locale
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
